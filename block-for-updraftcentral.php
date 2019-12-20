@@ -1,21 +1,23 @@
 <?php
 /**
- * Plugin Name: block-for-updraftplus — CGB Gutenberg Block Plugin
- * Plugin URI: https://github.com/ahmadawais/create-guten-block/
- * Description: block-for-updraftplus — is a Gutenberg plugin created via create-guten-block.
- * Author: mrahmadawais, maedahbatool
- * Author URI: https://AhmadAwais.com/
+ * Plugin Name: Block for UpdraftCentral
+ * Plugin URI: https://mediaron.com/updraftcentral
+ * Description: A block for inserting UpdraftCentral using Gutenberg.
+ * Author: Ronald Huereca
+ * Author URI: https://mediaron.com
  * Version: 1.0.0
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  *
- * @package CGB
+ * @package Block for UpdraftCentral.
  */
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+define( 'BLOCK_FOR_UPDRAFT_CENTRAL_VERSION', '1.0.0' );
 
 /**
  * Block Initializer.
