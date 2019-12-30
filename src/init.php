@@ -28,6 +28,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 function block_for_updraftcentral_cgb_block_assets() { // phpcs:ignore
+
+	register_meta(
+		'post',
+		'updraftCentral_metafield',
+		array(
+			'show_in_rest' => true,
+			'type'         => 'string',
+			'single'       => true,
+		)
+	);
+
 	// Register block styles for both frontend + backend.
 	wp_register_style(
 		'block_for_updraftcentral-cgb-style-css', // Handle.
@@ -40,7 +51,7 @@ function block_for_updraftcentral_cgb_block_assets() { // phpcs:ignore
 	wp_register_script(
 		'block_for_updraftcentral-cgb-block-js', // Handle.
 		plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ), // Block.build.js: We register the block here. Built with Webpack.
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-plugins', 'wp-edit-post', 'wp-data' ), // Dependencies, defined above.
 		BLOCK_FOR_UPDRAFT_CENTRAL_VERSION, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
 		true // Enqueue the script in the footer.
 	);
