@@ -33,6 +33,7 @@ function block_for_updraftcentral_single_override( $template ) {
 	if ( 'full' === get_post_meta( $id, 'updraftCentral_metafield', true ) ) {
 		return plugin_dir_path( __FILE__ ) . '/templates/updraftcentral.php';
 	}
+	return $template;
 }
 
 /**
