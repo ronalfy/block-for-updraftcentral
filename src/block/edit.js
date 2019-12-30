@@ -31,35 +31,8 @@ class Block_For_UpdaftCentral extends Component {
 	}
 
 	render() {
-		const { attributes, setAttributes } = this.props;
-		const { theme, fullScreenMode } = attributes;
-
-		const themes = [
-			{ value: 'none', label: __( 'Regular', 'block-for-updraftcentral' ) },
-			{ value: 'dark', label: __( 'Dark', 'block-for-updraftcentral' ) },
-			{ value: 'light', label: __( 'Regular', 'block-for-updraftcentral' ) },
-		];
-		const inspectorControls = (
-			<InspectorControls>
-				<PanelBody title={ __( 'UpdraftCentral Settings', 'block-for-updraftcentral' ) }>
-
-					<SelectControl
-							label={ __( 'Theme', 'post-type-archive-mapping' ) }
-							options={themes}
-							value={ theme }
-							onChange={ ( value ) => { this.props.setAttributes( { theme: value } ); } }
-					/>
-					<ToggleControl
-						label={ __( 'Full Screen Mode',  'post-type-archive-mapping' ) }
-						checked={ fullScreenMode }
-						onChange={ ( value ) => { this.props.setAttributes( { fullScreenMode: value } ); }}
-					/>
-				</PanelBody>
-			</InspectorControls>
-		);
 		return (
 			<Fragment>
-				{ inspectorControls }
 				<Placeholder>
 					<div className="updraftcentral-block-image">
 						<img src={block_for_uc.pluginDirUrl + '/src/updraftcentral.png'} alt={ __( 'UpdraftCentral', 'block-for-updraftcentral' ) } />
