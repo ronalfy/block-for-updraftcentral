@@ -19,6 +19,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'BLOCK_FOR_UPDRAFT_CENTRAL_VERSION', '1.0.0' );
 
+add_filter( 'template_include', 'block_for_updraftcentral_single_override', 99 );
+
+/**
+ * Overrides UpdraftPlus
+ *
+ * @param string $template The template file to override.
+ *
+ * @return string updated template file.
+ */
+function block_for_updraftcentral_single_override( $template ) {
+	$id = absint( get_queried_object_id() );
+	if ( 'full' === get_post_meta( $id, 'updraftCentral_metafield', true ) ) {
+		return plugin_dir_path( __FILE__ ) . '/templates/updraftcentral.php';
+	}
+}
+
 /**
  * Block Initializer.
  */

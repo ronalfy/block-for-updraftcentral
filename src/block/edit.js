@@ -32,7 +32,7 @@ class Block_For_UpdaftCentral extends Component {
 
 	render() {
 		const { attributes, setAttributes } = this.props;
-		const { theme } = attributes;
+		const { theme, fullScreenMode } = attributes;
 
 		const themes = [
 			{ value: 'none', label: __( 'Regular', 'block-for-updraftcentral' ) },
@@ -48,6 +48,11 @@ class Block_For_UpdaftCentral extends Component {
 							options={themes}
 							value={ theme }
 							onChange={ ( value ) => { this.props.setAttributes( { theme: value } ); } }
+					/>
+					<ToggleControl
+						label={ __( 'Full Screen Mode',  'post-type-archive-mapping' ) }
+						checked={ fullScreenMode }
+						onChange={ ( value ) => { this.props.setAttributes( { fullScreenMode: value } ); }}
 					/>
 				</PanelBody>
 			</InspectorControls>
