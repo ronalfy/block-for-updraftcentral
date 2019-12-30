@@ -89,9 +89,13 @@ function block_for_updraftcentral_cgb_block_assets() { // phpcs:ignore
 		'mediaron/block-for-updraftcentral',
 		array(
 			'attributes'      => array(
-				'theme' => array(
+				'theme'          => array(
 					'type'    => 'string',
 					'default' => 'none',
+				),
+				'fullScreenMode' => array(
+					'type'    => 'boolean',
+					'default' => true,
 				),
 			),
 			// Enqueue blocks.style.build.css on both frontend & backend.
@@ -113,7 +117,18 @@ function block_for_updraftcentral_cgb_block_assets() { // phpcs:ignore
  * @return string Shortcode contents.
  */
 function block_for_updraft_central_render( $attributes ) {
-	return do_shortcode( '[updraft_central]' );
+	ob_start();
+	echo do_shortcode( '[updraft_central]' );
+	?>
+	<script>
+		jQuery( document ).ready( function() {
+			setTimeout( function() {
+				UpdraftCentral_Library.toggle_fullscreen();
+			}, 5000 );
+		});
+	</script>
+	<?php
+	return ob_get_clean();
 }
 
 // Hook: Block assets.
