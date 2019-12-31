@@ -29,18 +29,12 @@ const updraftCentralSelect = [
 // Register a sidebar plugin.
 let PluginMetaFields = (props) => {
 	return (
-		<PanelBody
-		  title={__("UpdraftCentral Options", "block-for-updraftcentral")}
-		  icon="welcome-view-site"
-		  intialOpen={ true }
-		>
-			<SelectControl
-					label={ __( 'UpdraftCentral Display', 'block-for-updraftcentral' ) }
-					options={updraftCentralSelect}
-					value={wp.data.select('core/editor').getEditedPostAttribute('meta')['updraftCentral_metafield']}
-					onChange={(value) => props.onMetaFieldChange(value)}
-			/>
-		</PanelBody>
+		<SelectControl
+			label={ __( 'UpdraftCentral Display', 'block-for-updraftcentral' ) }
+			options={updraftCentralSelect}
+			value={wp.data.select('core/editor').getEditedPostAttribute('meta')['updraftCentral_metafield']}
+			onChange={(value) => props.onMetaFieldChange(value)}
+		/>
 	)
   }
   PluginMetaFields = withSelect(
@@ -64,11 +58,6 @@ registerPlugin( 'updraftcentral', {
 	render: () => {
 	return (
 		<Fragment>
-			<PluginSidebarMoreMenuItem
-			target="updraftcentral-sidebar"
-			>
-			{__('UpdraftCentral', 'block-for-updraftcentral')}
-		</PluginSidebarMoreMenuItem>
 		<PluginDocumentSettingPanel
 			title={__('UpdraftCentral Template', 'block-for-updraftcentral')}
 		>
