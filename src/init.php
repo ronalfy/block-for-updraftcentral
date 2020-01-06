@@ -29,16 +29,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function block_for_updraftcentral_cgb_block_assets() { // phpcs:ignore
 
-	register_meta(
-		'post',
-		'updraftCentral_metafield',
-		array(
-			'show_in_rest' => true,
-			'type'         => 'string',
-			'single'       => true,
-		)
-	);
-
 	// Register block styles for both frontend + backend.
 	wp_register_style(
 		'block_for_updraftcentral-cgb-style-css', // Handle.
@@ -72,6 +62,8 @@ function block_for_updraftcentral_cgb_block_assets() { // phpcs:ignore
 		array(
 			'pluginDirPath' => plugin_dir_path( __DIR__ ),
 			'pluginDirUrl'  => plugin_dir_url( __DIR__ ),
+			'rest_url'      => get_rest_url(),
+			'rest_nonce'    => wp_create_nonce( 'wp_rest' ),
 		)
 	);
 
@@ -86,16 +78,12 @@ function block_for_updraftcentral_cgb_block_assets() { // phpcs:ignore
 	 * @since 1.16.0
 	 */
 	register_block_type(
-		'mediaron/block-for-updraftcentral',
+		'updraftcentral/block-for-updraftcentral',
 		array(
 			'attributes'      => array(
-				'theme'          => array(
+				'template' => array(
 					'type'    => 'string',
 					'default' => 'none',
-				),
-				'fullScreenMode' => array(
-					'type'    => 'boolean',
-					'default' => true,
 				),
 			),
 			// Enqueue blocks.style.build.css on both frontend & backend.
@@ -119,17 +107,36 @@ function block_for_updraftcentral_cgb_block_assets() { // phpcs:ignore
 function block_for_updraft_central_render( $attributes ) {
 	ob_start();
 	echo do_shortcode( '[updraft_central]' );
-	?>
-	<script>
-		jQuery( document ).ready( function() {
-			setTimeout( function() {
-				UpdraftCentral_Library.toggle_fullscreen();
-			}, 5000 );
-		});
-	</script>
-	<?php
 	return ob_get_clean();
 }
 
 // Hook: Block assets.
 add_action( 'init', 'block_for_updraftcentral_cgb_block_assets' );
+
+/**
+ * Register route for rest apis
+ *
+ * @since 1.0.0
+ */
+function block_for_updraft_central_register_routes() {
+	register_rest_route(
+		'updraftcentral/v1',
+		'/save_block_meta_template',
+		array(
+			'methods'  => 'POST',
+			'callback' => 'block_for_updraft_central_save_meta',
+		)
+	);
+}
+add_action( 'rest_api_init', 'block_for_updraft_central_register_routes' );
+
+/**
+ * Save meta for UpdraftCentral.
+ */
+function block_for_updraft_central_save_meta( $request ) {
+	if ( current_user_can( 'manage_options' ) ) {
+		$post_id    = absint( $request['post_id'] );
+		$meta_value = sanitize_text_field( $request['meta_value'] );
+		update_post_meta( $post_id, '_updraftcentral_template', $meta_value );
+	}
+}
