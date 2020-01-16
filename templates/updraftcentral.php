@@ -22,11 +22,11 @@ add_filter( 'show_admin_bar', '__return_false' );
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php
-	do_action( 'wp_head' );
+	wp_head();
 	?>
 </head>
 <body>
-<div class="reveal">
+<div class="updraftcentral">
 	<?php
 	if ( have_posts() ) {
 		while ( have_posts() ) {
@@ -36,8 +36,8 @@ add_filter( 'show_admin_bar', '__return_false' );
 	}
 	?>
 </div>
-		<?php
-		do_action( 'wp_footer' );
-		?>
+<?php
+wp_footer();
+?>
 </body>
 </html>
